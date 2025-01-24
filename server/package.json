@@ -1,0 +1,26 @@
+{
+  "name": "my-to-do-api",
+  "module": "index.js",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint . --fix",
+    "start": "node src/server.js"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "eslint": "^8.0.1",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0 || ^16.0.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.0.0"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.5",
+    "my-to-do-api": "file:"
+  }
+}

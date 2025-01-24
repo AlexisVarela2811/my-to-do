@@ -1,0 +1,15 @@
+{
+    "name": "my-to-do",
+    "scripts": {
+      "start:backend": "cd server && bun run start",
+      "start": "concurrently \"bun run start:backend\"",
+      "lint:backend": "cd server && bun run lint"
+    },
+    "workspaces": [
+      "server"
+    ],
+    "dependencies": {
+      "concurrently": "^9.1.2"
+    },
+    "type": "module"
+}
