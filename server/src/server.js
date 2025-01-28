@@ -1,11 +1,9 @@
 //server
 import express from "express";
-import dotenv from "dotenv";
-import {conexionDB} from "./config/db.js";
+import { conexionDB } from "./config/db.js";
 import taskRouter from "./routes/taskRouter.js";
 import userRouter from "./routes/userRouter.js";
-
-dotenv.config();
+import { config } from "./config/config.js";
 
 const app = express();
 
@@ -15,6 +13,6 @@ app.use(userRouter);
 
 conexionDB();
 
-app.listen(process.env.PORT, () => {
-    console.log("Servidor corriendo en el puerto", process.env.PORT);
+app.listen(config.PORT, () => {
+  console.log("Servidor corriendo en el puerto", config.PORT);
 });
