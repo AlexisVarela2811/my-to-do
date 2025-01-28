@@ -1,16 +1,18 @@
 {
-    "name": "my-to-do",
-    "scripts": {
-        "start:backend": "cd server && bun run start",
-        "start": "concurrently \"bun run start:backend\"",
-        "lint:backend": "cd server && bun run lint"
-    },
-    "workspaces": [
-        "server"
-    ],
-    "dependencies": {
-        "concurrently": "^9.1.2",
-        "my-to-do": "file:"
-    },
-    "type": "module"
+  "name": "my-to-do",
+  "scripts": {
+    "start:backend": "cd server && bun run start",
+    "start:frontend": "cd client && bun run dev",
+    "start": "concurrently \"bun run start:backend\" \"bun run start:frontend\"",
+    "lint:backend": "cd server && bun run lint",
+    "lint:frontend": "cd client && bun run lint"
+  },
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "dependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "type": "module"
 }
