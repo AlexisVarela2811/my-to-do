@@ -14,25 +14,25 @@ export class UserRegistro {
       }
 
       // Verifica si el usuario ya existe
-      const existingUser = await User.findOne({ email: usuarioData.email });
-      if (existingUser) {
+      const EXISTING_USER = await User.findOne({ email: usuarioData.email });
+      if (EXISTING_USER) {
         throw new Error("El usuario ya existe");
       }
 
       // Hash de la contraseña
-      const hashedPassword = await this.passwordService.hashPassword(
+      const HASHED_PASSWORD = await this.passwordService.hashPassword(
         usuarioData.password
       );
 
       // Crear un nuevo usuario
-      const newUser = new User({
+      const NEW_USER = new User({
         usuario: usuarioData.usuario,
-        password: hashedPassword,
+        password: HASHED_PASSWORD,
         email: usuarioData.email,
       });
 
       // Guardar el nuevo usuario
-      await newUser.save();
+      await NEW_USER.save();
       return { message: "Usuario registrado exitosamente" };
     } catch (error) {
       throw new Error("Error al registrar el usuario: " + error.message);

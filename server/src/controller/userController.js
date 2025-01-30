@@ -32,7 +32,7 @@ export class UserController {
         });
       }
 
-      const result = await this.userRegistro.registrarUsuario({
+      const RESULT = await this.userRegistro.registrarUsuario({
         usuario,
         email,
         password,
@@ -40,7 +40,7 @@ export class UserController {
 
       return res.status(HTTP_STATUS.CREATED).json({
         success: true,
-        message: result.message,
+        message: RESULT.message,
       });
     } catch (error) {
       // Manejar errores específicos
@@ -74,13 +74,13 @@ export class UserController {
         });
       }
 
-      const result = await this.loginService.login(email, password);
+      const RESULT = await this.loginService.login(email, password);
 
       return res.status(HTTP_STATUS.OK).json({
         success: true,
         message: "Login exitoso",
-        token: result.token,
-        refreshToken: result.refreshToken,
+        token: RESULT.token,
+        refreshToken: RESULT.refreshToken,
       });
     } catch (error) {
       // Manejar errores específicos de autenticación

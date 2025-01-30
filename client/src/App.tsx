@@ -1,29 +1,27 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import './index.css'
-function App() {
-  const [count, setCount] = useState(0);
+import './index.css';
+import { useEffect } from 'react';
+import { useTasks } from './hooks/useTasks';
+import { TaskForm } from './components/TaskForm';
+import { TaskList } from './components/TaskList';
+import { SearchBar } from './components/SearchBar';
+
+const App: React.FC = () => {
+  const { tasks, error, createTask, getTasks, updateTask, deleteTask, filterTasks } = useTasks();
+  const userId = '678fc66ea8791c031ed896e1'; // Cambia esto por el ID del usuario actual
+
+  useEffect(() => {
+      getTasks(userId);
+  }, [getTasks, userId]);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="container mx-auto p-4">
+          <h1 className="text-3xl font-bold mb-6">Lista de Tareas</h1>
+          {error && <p className="text-red-500 mb-4">{error}</p>}
+          <TaskForm createTask={(data) => createTask({ titulo: data.titulo, descripcion: data.descripcion, usuario: 'currentUser', completado: false, fechaVencimiento: '', prioridad: '' })} />
+          <SearchBar filterTasks={filterTasks} />
+          <TaskList tasks={tasks} deleteTask={deleteTask} updateTask={updateTask} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <h1 className="text-blue-500/50 text-3xl font-bold">hola</h1>
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
-    </>
   );
-}
+};
 
 export default App;

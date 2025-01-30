@@ -29,8 +29,8 @@ export class TaskController {
       });
     }
     try {
-      const createService = new TaskService();
-      const task = await createService.createTask(
+      const CREATE_SERVICE = new TaskService();
+      const TASK = await CREATE_SERVICE.createTask(
         titulo,
         descripcion,
         completado ?? false,
@@ -40,7 +40,7 @@ export class TaskController {
       );
       return res.status(HTTP_STATUS_CREATED).json({
         message: "Tarea creada exitosamente",
-        task: task,
+        task: TASK,
       });
     } catch (error) {
       return res.status(HTTP_STATUS_ERROR).json({
@@ -51,11 +51,11 @@ export class TaskController {
   }
 
   async getTasks(req, res) {
-    const userId = req.params.userId;
-    const getService = new GetService();
+    const USER_ID = req.params.userId;
+    const GET_SERVICE = new GetService();
     try {
-      const tasks = await getService.getTasks(userId);
-      if (tasks.length === NO_TASK_FOUND) {
+      const TASKS = await GET_SERVICE.getTasks(USER_ID);
+      if (TASKS.length === NO_TASK_FOUND) {
         return res.status(HTTP_STATUS_NOT_FOUND).json({
           message: "No se encontraron tareas para este usuario.",
           tasks: [],
@@ -63,7 +63,7 @@ export class TaskController {
       }
       return res.status(HTTP_STATUS_OK).json({
         message: "Tareas obtenidas exitosamente",
-        tasks: tasks,
+        tasks: TASKS,
       });
     } catch (error) {
       return res.status(HTTP_STATUS_ERROR).json({
@@ -74,20 +74,20 @@ export class TaskController {
   }
 
   async updateTask(req, res) {
-    const updateService = new UpdateService();
+    const UPDATE_SERVICE = new UpdateService();
     const { id } = req.params;
-    const updateData = { ...req.body }; // Usar el cuerpo de la solicitud directamente
+    const UPDATE_DATA = { ...req.body }; // Usar el cuerpo de la solicitud directamente
 
     try {
-      const updatedTask = await updateService.updateTask(id, updateData);
-      if (!updatedTask) {
+      const UPDATED_TASK = await UPDATE_SERVICE.updateTask(id, UPDATE_DATA);
+      if (!UPDATED_TASK) {
         return res.status(HTTP_STATUS_NOT_FOUND).json({
           message: `No se encontró tarea con el ID ${id}`,
         });
       }
       return res.status(HTTP_STATUS_OK).json({
         message: "Tarea actualizada exitosamente",
-        updatedTask: updatedTask,
+        updatedTask: UPDATED_TASK,
       });
     } catch (error) {
       return res.status(HTTP_STATUS_ERROR).json({
@@ -99,18 +99,18 @@ export class TaskController {
 
   async deleteTask(req, res) {
     const { id } = req.params;
-    const deleteService = new DeleteService();
+    const DELETE_SERVICE = new DeleteService();
 
     try {
-      const deletedTask = await deleteService.deleteTask(id);
-      if (!deletedTask) {
+      const DELETED_TASK = await DELETE_SERVICE.deleteTask(id);
+      if (!DELETED_TASK) {
         return res.status(HTTP_STATUS_NOT_FOUND).json({
           message: `No se encontró tarea con el ID ${id}`,
         });
       }
       return res.status(HTTP_STATUS_OK).json({
         message: "Tarea eliminada exitosamente",
-        deletedTask: deletedTask,
+        deletedTask: DELETED_TASK,
       });
     } catch (error) {
       return res.status(HTTP_STATUS_ERROR).json({
@@ -121,14 +121,14 @@ export class TaskController {
   }
 
   async filterTasks(req, res) {
-    const { searchTerm } = req.params;
-    const filterService = new FilterService();
+    const {searchTerm } = req.params;
+    const FILTER_SERVICE = new FilterService();
 
     try {
-      const tasks = await filterService.filterTasks(searchTerm);
+      const TASKS = await FILTER_SERVICE.filterTasks(searchTerm);
       return res.status(HTTP_STATUS_OK).json({
         message: "Tareas filtradas exitosamente",
-        tasks: tasks,
+        tasks: TASKS,
       });
     } catch (error) {
       return res.status(HTTP_STATUS_ERROR).json({

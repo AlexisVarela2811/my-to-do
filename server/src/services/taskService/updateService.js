@@ -3,15 +3,15 @@ import { Task } from "../../models/taskModels.js";
 export class UpdateService {
   async updateTask(id, updateData) {
     try {
-      const updatedTask = await Task.findByIdAndUpdate(id, updateData, {
+      const UPDATED_TASK = await Task.findByIdAndUpdate(id, updateData, {
         new: true,
       });
 
-      if (!updatedTask) {
+      if (!UPDATED_TASK) {
         throw new Error("Tarea no encontrada");
       }
 
-      return updatedTask;
+      return UPDATED_TASK;
     } catch (error) {
       throw new Error("Error al actualizar la tarea: " + error.message);
     }

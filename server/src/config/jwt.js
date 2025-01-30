@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { config } from "../config/config.js";
 
 //fun para firmar el jwt
-export const generarAccessToken = (id) => {
+export const GENERAR_ACCESS_TOKEN = (id) => {
   return jwt.sign(
     { id, iat: Math.floor(Date.now() / 1000) }, // Incluye un timestamp de emisión
     config.JWT_SECRET,
@@ -11,7 +11,7 @@ export const generarAccessToken = (id) => {
   );
 };
 //fun para validar el jwt
-export const generarRefreshToken = (id) => {
+export const GENERAR_REFRESH_TOKEN = (id) => {
   return jwt.sign(
     { id, iat: Math.floor(Date.now() / 1000) }, // Incluye un timestamp de emisión
     config.JWT_SECRET,

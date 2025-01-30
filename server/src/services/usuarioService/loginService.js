@@ -1,30 +1,30 @@
 import { User } from "../../models/userModels.js";
 import { PasswordService } from "./passwordService.js";
-import { generarAccessToken, generarRefreshToken } from "../../config/jwt.js";
+import { GENERAR_ACCESS_TOKEN, GENERAR_REFRESH_TOKEN } from "../../config/jwt.js";
 
 export class LoginService {
   constructor() {
     this.passwordService = new PasswordService();
-    this.generarAccessToken = generarAccessToken;
-    this.generarRefreshToken = generarRefreshToken;
+    this.generarAccessToken = GENERAR_ACCESS_TOKEN;
+    this.generarRefreshToken = GENERAR_REFRESH_TOKEN;
   }
 
   async login(email, password) {
     try {
-      const usuario = await User.findOne({ email });
-      if (!usuario) {
+      const USUARIO = await User.findOne({ email });
+      if (!USUARIO) {
         throw new Error("El usuario no existe");
       }
-      const passwordCorrecto = await this.passwordService.comparePassword(
+      const PASSWORD_CORRECTO = await this.passwordService.comparePassword(
         password,
-        usuario.password
+        USUARIO.password
       );
-      if (!passwordCorrecto) {
+      if (!PASSWORD_CORRECTO) {
         throw new Error("Contraseña incorrecta");
       }
-      const token = this.generarAccessToken(usuario._id);
-      const refreshToken = this.generarRefreshToken(usuario._id);
-      return { token, refreshToken };
+      const TOKEN = this.generarAccessToken(USUARIO._id);
+      const REFRESH_TOKEN = this.generarRefreshToken(USUARIO._id);
+      return { TOKEN, REFRESH_TOKEN };
     } catch (error) {
       throw new Error("Error al iniciar sesión: " + error.message);
     }

@@ -7,5 +7,10 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  cacheDir : '../node_modules/.tmp'
+  server: {
+    host: '0.0.0.0',
+    port: 5173
+  },
+  cacheDir : '../node_modules/.tmp',
+
 })
