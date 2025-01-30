@@ -14,13 +14,24 @@ const App: React.FC = () => {
   }, [getTasks, userId]);
 
   return (
-      <div className="container mx-auto p-4">
-          <h1 className="text-3xl font-bold mb-6">Lista de Tareas</h1>
-          {error && <p className="text-red-500 mb-4">{error}</p>}
-          <TaskForm createTask={(data) => createTask({ titulo: data.titulo, descripcion: data.descripcion, usuario: 'currentUser', completado: false, fechaVencimiento: '', prioridad: '' })} />
-          <SearchBar filterTasks={filterTasks} />
-          <TaskList tasks={tasks} deleteTask={deleteTask} updateTask={updateTask} />
-      </div>
+    <div className="container mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-6">Lista de Tareas</h1>
+      {error && <p className="text-red-500 mb-4">{error}</p>}
+      <TaskForm
+        createTask={(data) =>
+          createTask({
+            titulo: data.titulo,
+            descripcion: data.descripcion,
+            usuario: userId,
+            completado: false,
+            fechaVencimiento: data.fechaVencimiento,
+            prioridad: data.prioridad,
+          })
+        }
+      />
+      <SearchBar filterTasks={filterTasks} />
+      <TaskList tasks={tasks} deleteTask={deleteTask} updateTask={updateTask} />
+    </div>
   );
 };
 

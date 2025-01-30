@@ -15,6 +15,7 @@ const NO_TASK_FOUND = 0;
 
 export class TaskController {
   async createTask(req, res) {
+    console.log("recibindo datos", req.body);
     const {
       titulo,
       descripcion,
@@ -23,6 +24,14 @@ export class TaskController {
       prioridad,
       usuario,
     } = req.body;
+
+    // Parse the fechaVencimiento if it's a string in DD-MM-YYYY format
+    let parsedFechaVencimiento;
+    if (fechaVencimiento) {
+      const [day, month, year] = fechaVencimiento.split("-").map(Number);
+      parsedFechaVencimiento = new Date(year, month - 1, day); // Month is 0-indexed
+    }
+
     if (!titulo || !descripcion || !usuario) {
       return res.status(HTTP_STATUS_BAD_REQUEST).json({
         message: "Faltan datos requeridos (titulo, descripcion, usuario).",
@@ -34,7 +43,7 @@ export class TaskController {
         titulo,
         descripcion,
         completado ?? false,
-        fechaVencimiento,
+        parsedFechaVencimiento, // Use the parsed date
         prioridad,
         usuario
       );
@@ -77,7 +86,7 @@ export class TaskController {
     const UPDATE_SERVICE = new UpdateService();
     const { id } = req.params;
     const UPDATE_DATA = { ...req.body }; // Usar el cuerpo de la solicitud directamente
-
+    console.log("recibindo UPDATE_DATA", UPDATE_DATA);
     try {
       const UPDATED_TASK = await UPDATE_SERVICE.updateTask(id, UPDATE_DATA);
       if (!UPDATED_TASK) {

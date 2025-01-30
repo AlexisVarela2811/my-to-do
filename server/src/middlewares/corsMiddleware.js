@@ -18,6 +18,6 @@ export const corsConfig = cors({
 
         return callback(null, true);
     },
-    methods: ['GET', 'POST', 'DELETE'],
+    methods: ['GET', 'POST', 'DELETE', 'PUT'],
     credentials: true, 
 });
