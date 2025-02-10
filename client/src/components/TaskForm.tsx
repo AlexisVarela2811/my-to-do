@@ -8,8 +8,8 @@ export const TaskForm: React.FC<{
   const [titulo, setTitulo] = useState<string>("");
   const [descripcion, setDescripcion] = useState<string>("");
   const [completado, setCompletado] = useState<boolean>(false);
-  const [fechaVencimiento, setFechaVencimiento] = useState<string>(""); // Keep this as string
-  const [prioridad, setPrioridad] = useState<TaskPriority>(TaskPriority.Media); // Use enum here
+  const [fechaVencimiento, setFechaVencimiento] = useState<string>(""); 
+  const [prioridad, setPrioridad] = useState<TaskPriority>(TaskPriority.Media); 
   const usuario = "678fc66ea8791c031ed896e1";
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -18,22 +18,12 @@ export const TaskForm: React.FC<{
     const [year, month, day] = fechaVencimiento.split("-");
     const formattedDate = `${day}-${month}-${year}`; // Convert to DD-MM-YYYY
 
-    // Log the task data before sending
-    console.log({
-      titulo,
-      descripcion,
-      completado,
-      fechaVencimiento: formattedDate, // Send the date as a string
-      prioridad,
-      usuario,
-    });
-
     // Call createTask with the task data
     createTask({
       titulo,
       descripcion,
       completado,
-      fechaVencimiento: formattedDate, // Send the date as a string
+      fechaVencimiento: formattedDate, 
       prioridad,
       usuario,
     });
@@ -67,27 +57,19 @@ export const TaskForm: React.FC<{
         <input
           type="date"
           value={fechaVencimiento}
-          onChange={(e) => setFechaVencimiento(e.target.value)} // Still using string
+          onChange={(e) => setFechaVencimiento(e.target.value)} 
           placeholder="Fecha de Vencimiento"
           className="flex-1 p-2 border rounded"
         />
         <select
           value={prioridad}
-          onChange={(e) => setPrioridad(e.target.value as TaskPriority)} // Cast to enum
+          onChange={(e) => setPrioridad(e.target.value as TaskPriority)} 
           className="flex-1 p-2 border rounded"
         >
           <option value={TaskPriority.Baja}>Baja</option>
           <option value={TaskPriority.Media}>Media</option>
           <option value={TaskPriority.Alta}>Alta</option>
         </select>
-        <label>
-          <input
-            type="checkbox"
-            checked={completado}
-            onChange={(e) => setCompletado(e.target.checked)}
-          />
-          Completado
-        </label>
         <button
           type="submit"
           className="px-4 py-2 bg-green-500 text-white rounded"

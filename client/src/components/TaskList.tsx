@@ -14,7 +14,7 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks, deleteTask, updateTas
         <div className="space-y-4">
             {tasks.map((task, index) => (
                 <TaskItem
-                key={`${task.id}-${index}`}
+                key={`${task._id}-${index}`}
                     task={task}
                     deleteTask={deleteTask}
                     updateTask={updateTask}

@@ -87,6 +87,11 @@ export class TaskController {
     const { id } = req.params;
     const UPDATE_DATA = { ...req.body }; // Usar el cuerpo de la solicitud directamente
     console.log("recibindo UPDATE_DATA", UPDATE_DATA);
+    let parsedFechaVencimiento;
+    if (UPDATE_DATA.fechaVencimiento) {
+      const [day, month, year] = UPDATE_DATA.fechaVencimiento.split("-").map(Number);
+      parsedFechaVencimiento = new Date(year, month - 1, day); // Month is 0-indexed
+    }
     try {
       const UPDATED_TASK = await UPDATE_SERVICE.updateTask(id, UPDATE_DATA);
       if (!UPDATED_TASK) {
